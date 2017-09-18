@@ -1,6 +1,6 @@
 package com.example.daniel.ai_labs;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,11 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,13 +69,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_container);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.error_message, null);
-        mainLayout.removeAllViews();
-
         if (id == R.id.lab1) {
-            layout = inflater.inflate(R.layout.lab1_content, null);
+            Intent intent = new Intent(this, Lab1Activity.class);
+            startActivity(intent);
         } else if (id == R.id.lab2) {
 
         } else if (id == R.id.lab3) {
@@ -91,7 +84,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        mainLayout.addView(layout);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

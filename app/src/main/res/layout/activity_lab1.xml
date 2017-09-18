@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.example.daniel.ai_labs.Lab1Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Color">
+
+        <TextView
+            android:id="@+id/colorValueInformField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Color Value (x) : "
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/xValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="0"
+            tools:layout_editor_absoluteX="360dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <SeekBar
+            android:id="@+id/xChanger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/colorValueInformField"
+            android:max="100"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="33dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Sensetive"
+        android:layout_below="@+id/Color"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/sensetiveValueInformField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Sensetive Value b/c"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <TextView
+            android:id="@+id/sensetiveValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="0"
+            tools:layout_editor_absoluteX="360dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <SeekBar
+            android:id="@+id/sensetiveChanger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/sensetiveValueInformField"
+            android:max="10"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="68dp" />
+
+        <SeekBar
+            android:id="@+id/smoothChanger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/sensetiveChanger"
+            android:max="10"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="68dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Blonde"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Sensetive"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/blondeInformField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Blonde"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="86dp" />
+
+        <TextView
+            android:id="@+id/blondePercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="0%"
+            tools:layout_editor_absoluteX="350dp"
+            tools:layout_editor_absoluteY="86dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Blonde"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/redInformField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Red"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="103dp" />
+
+        <TextView
+            android:id="@+id/redPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="0%"
+            tools:layout_editor_absoluteX="350dp"
+            tools:layout_editor_absoluteY="103dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Brunete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Red"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/bruneteInformField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Brunete"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <TextView
+            android:id="@+id/brunetePercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="0%"
+            tools:layout_editor_absoluteX="350dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Brunete"
+        android:paddingTop="16dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="137dp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textResult" />
+
+</RelativeLayout>
