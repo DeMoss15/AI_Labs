@@ -150,7 +150,6 @@ public class Lab1Activity extends AppCompatActivity {
     }
 
     private void buildGraph(){
-        double[] valuesArray = {0.0, 0.0, 0.0};
         graph.removeAllSeries();
         seriesBlonde = new LineGraphSeries<DataPoint>();
         seriesRedhead = new LineGraphSeries<DataPoint>();
@@ -159,15 +158,15 @@ public class Lab1Activity extends AppCompatActivity {
 
         for (int i = 0; i <= 100; ++i) {
             seriesBlonde.appendData(
-                    new DataPoint(i, function(Blonde.getShift(), sensebility, smoothing, i)),
+                    new DataPoint(i, function(Blonde.getShift(), sensebility, smoothing, i + 0.0)),
                     true,
                     100);
             seriesRedhead.appendData(
-                    new DataPoint(i, function(Redhead.getShift(), sensebility, smoothing, i)),
+                    new DataPoint(i, function(Redhead.getShift(), sensebility, smoothing, i + 0.0)),
                     true,
                     100);
             seriesBrunete.appendData(
-                    new DataPoint(i, function(Brunete.getShift(), sensebility, smoothing, i)),
+                    new DataPoint(i, function(Brunete.getShift(), sensebility, smoothing, i + 0.0)),
                     true,
                     100);
             seriesX.appendData(
@@ -209,7 +208,7 @@ public class Lab1Activity extends AppCompatActivity {
         return res + " " + hairColor + " ";
     }
 
-    private double function(int a, int b, int c, int x){
+    private double function(int a, int b, int c, double x){
         /*a - shift of func
         * b -
         * с -
