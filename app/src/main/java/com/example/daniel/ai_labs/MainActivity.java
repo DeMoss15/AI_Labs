@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, Lab1Activity.class);
             startActivity(intent);
         } else if (id == R.id.lab2) {
-
+            Intent intent = new Intent(this, Lab2Activity.class);
+            startActivity(intent);
         } else if (id == R.id.lab3) {
 
         } else if (id == R.id.lab4) {

@@ -4,10 +4,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/lab1"
-            android:title="Lab 1" />
+            android:title="Function of fuzzy logic" />
         <item
             android:id="@+id/lab2"
-            android:title="Lab 2" />
+            android:title="Simple chat bot" />
         <item
             android:id="@+id/lab3"
             android:title="Lab 3" />
