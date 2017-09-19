@@ -157,30 +157,29 @@ public class Lab1Activity extends AppCompatActivity {
         seriesBrunete = new LineGraphSeries<DataPoint>();
         seriesX = new LineGraphSeries<DataPoint>();
 
-        for (int i = 0; i <= 100; ++i){
+        for (int i = 0; i <= 100; ++i) {
             seriesBlonde.appendData(
                     new DataPoint(i, function(Blonde.getShift(), sensebility, smoothing, i)),
                     true,
                     100);
-            seriesBlonde.setColor(Color.YELLOW);
             seriesRedhead.appendData(
                     new DataPoint(i, function(Redhead.getShift(), sensebility, smoothing, i)),
                     true,
                     100);
-            seriesRedhead.setColor(Color.RED);
             seriesBrunete.appendData(
                     new DataPoint(i, function(Brunete.getShift(), sensebility, smoothing, i)),
                     true,
                     100);
-            seriesBrunete.setColor(Color.BLACK);
             seriesX.appendData(
                     new DataPoint(x, i - 1),
                     true,
-                    100
-            );
-            seriesX.setColor(Color.GREEN);
+                    100);
         }
 
+        seriesX.setColor(Color.GREEN);
+        seriesBrunete.setColor(Color.BLACK);
+        seriesBlonde.setColor(Color.YELLOW);
+        seriesRedhead.setColor(Color.RED);
         graph.addSeries(seriesBlonde);
         graph.addSeries(seriesRedhead);
         graph.addSeries(seriesBrunete);
@@ -218,7 +217,7 @@ public class Lab1Activity extends AppCompatActivity {
         * */
         double res;
         if (b != 0)
-            res = 1/(1+Math.pow(((x-a)/b), c));
+            res = 1.0/(1 + Math.pow(((x-a)/b), c));
         else
             res = 0;
         return res;
