@@ -13,8 +13,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 public class Lab1Activity extends AppCompatActivity {
 
     private int x = 0;
-    private int smoothing = 2;
-    private int sensebility = 2;
     Girl Blonde, Redhead, Brunete;
     TextView xValue;
     TextView sensetiveValue;
@@ -94,7 +92,7 @@ public class Lab1Activity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                smoothing = 2 + smoothChanger.getProgress() * 2;
+                Girl.setSmoothing(2 + smoothChanger.getProgress() * 2);
                 onChanges();
             }
         });
@@ -113,7 +111,7 @@ public class Lab1Activity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                sensebility = 2 + sensetiveChanger.getProgress() * 2;
+                Girl.setSensebility(2 + sensetiveChanger.getProgress() * 2);
                 onChanges();
             }
         });
@@ -123,27 +121,26 @@ public class Lab1Activity extends AppCompatActivity {
         double[] valuesArray = {0.0, 0.0, 0.0};
 
         /*Update here canvas (graphics) and values*/
-        valuesArray[0] = function(Blonde.getShift(), sensebility, smoothing, x);
-        valuesArray[1] = function(Redhead.getShift(), sensebility, smoothing, x);
-        valuesArray[2] = function(Brunete.getShift(), sensebility, smoothing, x);
+        valuesArray[0] = Blonde.function(x);
+        valuesArray[1] = Redhead.function(x);
+        valuesArray[2] = Brunete.function(x);
+        double summ = valuesArray[0] + valuesArray[1] + valuesArray[2];
 
-        Blonde.setPercentage(valuesArray[0] * 100 /
-                (valuesArray[0] + valuesArray[1] + valuesArray[2]));
-        Redhead.setPercentage(valuesArray[1] * 100 /
-                (valuesArray[0] + valuesArray[1] + valuesArray[2]));
-        Brunete.setPercentage(valuesArray[2] * 100 /
-                (valuesArray[0] + valuesArray[1] + valuesArray[2]));
+        Blonde.setPercentage(valuesArray[0] * 100 / summ);
+        Redhead.setPercentage(valuesArray[1] * 100 / summ);
+        Brunete.setPercentage(valuesArray[2] * 100 / summ);
 
         xValue.setText(Integer.toString(x));
-        sensetiveValue.setText(Integer.toString(sensebility) + "/" + Integer.toString(smoothing));
+        sensetiveValue.setText(Integer.toString(Girl.getSensebility()) + "/"
+                + Integer.toString(Girl.getSmoothing()));
         blondePercent.setText(Double.toString(Math.round(Blonde.getPercentage())) + "%");
         redPercent.setText(Double.toString(Math.round(Redhead.getPercentage()))  + "%");
         brunetePercent.setText(Double.toString(Math.round(Brunete.getPercentage()))  + "%");
 
         String output = "";
-        output += toneSwitch(Blonde.getPercentage(), Blonde.getColorValue());
-        output += toneSwitch(Redhead.getPercentage(), Redhead.getColorValue());
-        output += toneSwitch(Brunete.getPercentage(), Brunete.getColorValue());
+        output += Blonde.getTone();
+        output += Redhead.getTone();
+        output += Brunete.getTone();
 
         textResult.setText(output);
         buildGraph();
@@ -158,15 +155,15 @@ public class Lab1Activity extends AppCompatActivity {
 
         for (int i = 0; i <= 100; ++i) {
             seriesBlonde.appendData(
-                    new DataPoint(i, function(Blonde.getShift(), sensebility, smoothing, i + 0.0)),
+                    new DataPoint(i, Blonde.function(i * 1.0f)),
                     true,
                     100);
             seriesRedhead.appendData(
-                    new DataPoint(i, function(Redhead.getShift(), sensebility, smoothing, i + 0.0)),
+                    new DataPoint(i, Redhead.function(i * 1.0f)),
                     true,
                     100);
             seriesBrunete.appendData(
-                    new DataPoint(i, function(Brunete.getShift(), sensebility, smoothing, i + 0.0)),
+                    new DataPoint(i, Brunete.function(i * 1.0f)),
                     true,
                     100);
             seriesX.appendData(
@@ -189,37 +186,6 @@ public class Lab1Activity extends AppCompatActivity {
 
         //graph.getViewport().setScrollable(true);
         //graph.canScrollHorizontally(0);
-    }
-
-    private String toneSwitch(double perc, String hairColor){
-        String res = "";
-        if (perc < 1)
-            return res;
-        else if (perc < 20)
-            res = "not";
-        else if (perc < 40)
-            res = "already not";
-        else if (perc < 60)
-            res = "either";
-        else if (perc < 80)
-            res = "still";
-        else
-            res = "already";
-        return res + " " + hairColor + " ";
-    }
-
-    private double function(int a, int b, int c, double x){
-        /*a - shift of func
-        * b -
-        * с -
-        * x - value of seekBar
-        * */
-        double res;
-        if (b != 0)
-            res = 1.0/(1 + Math.pow(((x-a)/b), c));
-        else
-            res = 0;
-        return res;
     }
 }
 
