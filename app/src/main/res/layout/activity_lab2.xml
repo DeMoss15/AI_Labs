@@ -6,19 +6,22 @@
     android:layout_height="match_parent"
     android:layout_alignParentBottom="false"
     android:orientation="vertical"
+    android:visibility="visible"
     tools:context="com.example.daniel.ai_labs.Lab2Activity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_weight="0.9">
+        android:layout_weight="0.9"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/messageField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
         </LinearLayout>
     </ScrollView>
@@ -29,7 +32,8 @@
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
         android:background="@color/colorMessagePanel"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/userMessage"
@@ -43,19 +47,17 @@
             android:ems="10"
             android:hint="Enter your message"
             android:inputType="textMultiLine"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textColorHighlight="@android:color/holo_blue_dark"
-            android:textColorHint="@android:color/holo_blue_dark"
-            android:textColorLink="@android:color/holo_blue_dark"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:visibility="visible" />
 
-        <ImageButton
+        <Button
             android:id="@+id/enter"
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            app:srcCompat="@drawable/ic_menu_send" />
+            android:text="Send" />
 
     </LinearLayout>
 

@@ -185,7 +185,7 @@ public class Lab1Activity extends AppCompatActivity {
         graph.addSeries(seriesX);
 
         graph.getViewport().setMaxY(1);
-        graph.getViewport().setMaxX(150);
+        graph.getViewport().setMaxX(100);
 
         //graph.getViewport().setScrollable(true);
         //graph.canScrollHorizontally(0);
