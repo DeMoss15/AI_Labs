@@ -15,7 +15,7 @@ public class Lab2Activity extends AppCompatActivity {
     TextView inputField;
     LinearLayout messagesField;
     final String TAG = "Message";
-    ChatDBHandler db = new ChatDBHandler(this);
+    final ChatBot MyBot = ChatBot.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,10 @@ public class Lab2Activity extends AppCompatActivity {
 
         final LayoutInflater inflater = getLayoutInflater();
         enter = (Button)findViewById(R.id.enter);
-        inputField = (TextView)findViewById(R.id.userMessage);
+        inputField = (TextView)findViewById(R.id.userMessageInput);
         messagesField = (LinearLayout)findViewById(R.id.messageField);
+
+        sendMessage(false, "Привет! Я чатбот Кеша. А как тебя зовут?", inflater);
 
         View.OnClickListener OnCLickListener = new View.OnClickListener() {
             @Override
@@ -37,6 +39,11 @@ public class Lab2Activity extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.enter:
                         sendMessage(true, inputField.getText().toString(), inflater);
+                        sendMessage(
+                                false,
+                                MyBot.generateAnswer(inputField.getText().toString()),
+                                inflater);
+                        inputField.setText("");
                         break;
                 }
             }
@@ -45,21 +52,22 @@ public class Lab2Activity extends AppCompatActivity {
         enter.setOnClickListener(OnCLickListener);
     }
 
-    private void sendMessage (boolean autorsMarker, String message, LayoutInflater inflater){
+    private void sendMessage (boolean isUsersMessage, String message, LayoutInflater inflater){
         View messagePattern;
 
         if (message.equals("")) return;
 
-        if (autorsMarker) { //user?
+        if (isUsersMessage) { //user?
             messagePattern = inflater.inflate(R.layout.user_message_pattern, messagesField, false);
             Log.d(TAG, "создание сообщения от юзера");
 
-            TextView messageView = (TextView)findViewById(R.id.userMessage);
+            TextView messageView = (TextView) messagePattern.findViewById(R.id.userMessage);
             messageView.setText(message);
         } else {
             messagePattern = inflater.inflate(R.layout.answer_pattern, messagesField, false);
+            Log.d(TAG, "создание сообщения от Bota");
 
-            TextView messageView = (TextView)findViewById(R.id.answerMessage);
+            TextView messageView = (TextView) messagePattern.findViewById(R.id.answerMessage);
             messageView.setText(message);
         }
 

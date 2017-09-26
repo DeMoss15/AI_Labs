@@ -4,7 +4,7 @@ package com.example.daniel.ai_labs;
  * Created by Daniel on 18.09.2017.
  */
 
-class Girl {
+final class Girl {
 
     private int shift;
     private double percentage;
@@ -12,13 +12,13 @@ class Girl {
     private static int smoothing = 2;
     private static int sensebility = 2;
 
-    Girl(int shiftP, String hairColorP, double percentageP){
+    Girl(int shiftP, String hairColorP, double percentageP) {
         shift = shiftP;
         percentage = percentageP;
         hairColor = hairColorP;
     }
 
-    public double function(double x){
+    double function(double x) {
         /*a - shift of func
         * b - sensebility
         * с - smoothing
@@ -26,17 +26,17 @@ class Girl {
         * */
         double res;
         if (sensebility != 0)
-            res = 1.0/(1 + Math.pow(((x - this.getShift())/sensebility), smoothing));
+            res = 1.0 / (1 + Math.pow(((x - this.getShift()) / sensebility), smoothing));
         else
             res = 0;
         return res;
     }
 
-    String getColorValue(){
+    String getColorValue() {
         return hairColor;
     }
 
-    String getTone(){
+    String getTone() {
         String res = "";
         if (percentage < 1)
             return res;
@@ -53,31 +53,31 @@ class Girl {
         return res + " " + hairColor + " ";
     }
 
-    int getShift(){
+    int getShift() {
         return shift;
     }
 
-    double getPercentage(){
+    double getPercentage() {
         return percentage;
     }
 
-    void setPercentage(double newPercentage){
+    void setPercentage(double newPercentage) {
         percentage = newPercentage;
     }
 
-    static void setSmoothing(int smoothing1){
+    static void setSmoothing(int smoothing1) {
         smoothing = smoothing1;
     }
 
-    static int getSmoothing(){
+    static int getSmoothing() {
         return smoothing;
     }
 
-    static void setSensebility(int sensebility1){
+    static void setSensebility(int sensebility1) {
         sensebility = sensebility1;
     }
 
-    static int getSensebility(){
+    static int getSensebility() {
         return sensebility;
     }
 }

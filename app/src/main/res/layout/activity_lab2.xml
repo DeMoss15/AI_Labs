@@ -36,7 +36,7 @@
         android:visibility="visible">
 
         <EditText
-            android:id="@+id/userMessage"
+            android:id="@+id/userMessageInput"
             style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

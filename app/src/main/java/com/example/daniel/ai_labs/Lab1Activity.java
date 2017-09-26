@@ -31,13 +31,13 @@ public class Lab1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lab1);
 
-        xValue = (TextView)findViewById(R.id.xValue);
-        sensetiveValue = (TextView)findViewById(R.id.sensetiveValue);
-        blondePercent = (TextView)findViewById(R.id.blondePercent);
-        redPercent = (TextView)findViewById(R.id.redPercent);
-        brunetePercent = (TextView)findViewById(R.id.brunetePercent);
-        textResult = (TextView)findViewById(R.id.textResult);
-        graph = (GraphView)findViewById(R.id.graph);
+        xValue = (TextView) findViewById(R.id.xValue);
+        sensetiveValue = (TextView) findViewById(R.id.sensetiveValue);
+        blondePercent = (TextView) findViewById(R.id.blondePercent);
+        redPercent = (TextView) findViewById(R.id.redPercent);
+        brunetePercent = (TextView) findViewById(R.id.brunetePercent);
+        textResult = (TextView) findViewById(R.id.textResult);
+        graph = (GraphView) findViewById(R.id.graph);
 
         // set manual X bounds
         graph.getViewport().setYAxisBoundsManual(true);
@@ -59,7 +59,7 @@ public class Lab1Activity extends AppCompatActivity {
         onChanges();
         buildGraph();
 
-        final SeekBar xChanger = (SeekBar)findViewById(R.id.xChanger);
+        final SeekBar xChanger = (SeekBar) findViewById(R.id.xChanger);
         xChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -78,7 +78,7 @@ public class Lab1Activity extends AppCompatActivity {
             }
         });
 
-        final SeekBar smoothChanger = (SeekBar)findViewById(R.id.smoothChanger);
+        final SeekBar smoothChanger = (SeekBar) findViewById(R.id.smoothChanger);
         smoothChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -97,7 +97,7 @@ public class Lab1Activity extends AppCompatActivity {
             }
         });
 
-        final SeekBar sensetiveChanger = (SeekBar)findViewById(R.id.sensetiveChanger);
+        final SeekBar sensetiveChanger = (SeekBar) findViewById(R.id.sensetiveChanger);
         sensetiveChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -117,7 +117,7 @@ public class Lab1Activity extends AppCompatActivity {
         });
     }
 
-    private void onChanges(){
+    private void onChanges() {
         double[] valuesArray = {0.0, 0.0, 0.0};
 
         /*Update here canvas (graphics) and values*/
@@ -134,8 +134,8 @@ public class Lab1Activity extends AppCompatActivity {
         sensetiveValue.setText(Integer.toString(Girl.getSensebility()) + "/"
                 + Integer.toString(Girl.getSmoothing()));
         blondePercent.setText(Double.toString(Math.round(Blonde.getPercentage())) + "%");
-        redPercent.setText(Double.toString(Math.round(Redhead.getPercentage()))  + "%");
-        brunetePercent.setText(Double.toString(Math.round(Brunete.getPercentage()))  + "%");
+        redPercent.setText(Double.toString(Math.round(Redhead.getPercentage())) + "%");
+        brunetePercent.setText(Double.toString(Math.round(Brunete.getPercentage())) + "%");
 
         String output = "";
         output += Blonde.getTone();
@@ -146,7 +146,7 @@ public class Lab1Activity extends AppCompatActivity {
         buildGraph();
     }
 
-    private void buildGraph(){
+    private void buildGraph() {
         graph.removeAllSeries();
         seriesBlonde = new LineGraphSeries<DataPoint>();
         seriesRedhead = new LineGraphSeries<DataPoint>();
