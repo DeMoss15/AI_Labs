@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Daniel on 26.09.2017.
  */
 
-class ChatBot {
+final public class ChatBot {
 
     private static ChatBot pointerToBot = new ChatBot();
     private Map<String, String> answersDicrionary = new HashMap<>();
@@ -25,10 +26,10 @@ class ChatBot {
         answersDicrionary.put("рыб", "А золотая тебе не встречалась?");
         answersDicrionary.put("хомя", "Ты его сегодня утром видел?");
         answersDicrionary.put("у меня не", "");
+        /*answersDicrionary.put("", "");
         answersDicrionary.put("", "");
         answersDicrionary.put("", "");
-        answersDicrionary.put("", "");
-        answersDicrionary.put("", "");
+        answersDicrionary.put("", "");*/
 
         defaultAnswer.add("Не понимаю о чем Вы...");
         defaultAnswer.add("Fatal Error");
@@ -36,11 +37,11 @@ class ChatBot {
         defaultAnswer.add("Кажеся, мы друг друга не понимаем.");
     }
 
-    static ChatBot getInstance() {
+    public static ChatBot getInstance() {
         return pointerToBot;
     }
 
-    String generateAnswer(String uMessage) {
+    public String generateAnswer(String uMessage) {
         String userMessage = uMessage.toLowerCase();
 
         for (Map.Entry<String, String> i : answersDicrionary.entrySet()) {
@@ -48,6 +49,6 @@ class ChatBot {
                 return i.getValue();
         }
 
-        return defaultAnswer.get(((Double)Math.random()).intValue() % defaultAnswer.size());
+        return defaultAnswer.get(new Random().nextInt(defaultAnswer.size()));
     }
 }

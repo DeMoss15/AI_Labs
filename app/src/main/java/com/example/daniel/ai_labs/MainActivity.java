@@ -1,5 +1,6 @@
 package com.example.daniel.ai_labs;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,8 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.daniel.ai_labs.fragments.Lab1;
+import com.example.daniel.ai_labs.fragments.Lab2;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Lab1 fragmentLab1;
+    Lab2 fragmentLab2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +29,17 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentLab1 = new Lab1();
+        fragmentLab2 = new Lab2();
+        getFragmentManager().beginTransaction().replace(R.id.main_container, fragmentLab1).commit();
     }
 
     @Override
@@ -69,12 +80,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentTransaction ftrans = getFragmentManager().beginTransaction();
+
         if (id == R.id.lab1) {
-            Intent intent = new Intent(this, Lab1Activity.class);
-            startActivity(intent);
+            ftrans.replace(R.id.main_container, fragmentLab1);
         } else if (id == R.id.lab2) {
-            Intent intent = new Intent(this, Lab2Activity.class);
-            startActivity(intent);
+            ftrans.replace(R.id.main_container, fragmentLab2);
         } else if (id == R.id.lab3) {
 
         } else if (id == R.id.lab4) {
@@ -85,6 +96,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        ftrans.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -1,16 +1,24 @@
-package com.example.daniel.ai_labs;
+package com.example.daniel.ai_labs.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Fragment;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.daniel.ai_labs.Girl;
+import com.example.daniel.ai_labs.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-public class Lab1Activity extends AppCompatActivity {
+public class Lab1 extends Fragment {
 
     private int x = 0;
     Girl Blonde, Redhead, Brunete;
@@ -26,18 +34,33 @@ public class Lab1Activity extends AppCompatActivity {
     LineGraphSeries<DataPoint> seriesX;
     GraphView graph;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lab1);
+    private OnFragmentInteractionListener mListener;
 
-        xValue = (TextView) findViewById(R.id.xValue);
-        sensetiveValue = (TextView) findViewById(R.id.sensetiveValue);
-        blondePercent = (TextView) findViewById(R.id.blondePercent);
-        redPercent = (TextView) findViewById(R.id.redPercent);
-        brunetePercent = (TextView) findViewById(R.id.brunetePercent);
-        textResult = (TextView) findViewById(R.id.textResult);
-        graph = (GraphView) findViewById(R.id.graph);
+    public Lab1() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_lab1, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        xValue = (TextView) getView().findViewById(R.id.xValue);
+        sensetiveValue = (TextView) getView().findViewById(R.id.sensetiveValue);
+        blondePercent = (TextView) getView().findViewById(R.id.blondePercent);
+        redPercent = (TextView) getView().findViewById(R.id.redPercent);
+        brunetePercent = (TextView) getView().findViewById(R.id.brunetePercent);
+        textResult = (TextView) getView().findViewById(R.id.textResult);
+        graph = (GraphView) getView().findViewById(R.id.graph);
 
         // set manual X bounds
         graph.getViewport().setYAxisBoundsManual(true);
@@ -59,7 +82,7 @@ public class Lab1Activity extends AppCompatActivity {
         onChanges();
         buildGraph();
 
-        final SeekBar xChanger = (SeekBar) findViewById(R.id.xChanger);
+        final SeekBar xChanger = (SeekBar) getView().findViewById(R.id.xChanger);
         xChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -78,7 +101,7 @@ public class Lab1Activity extends AppCompatActivity {
             }
         });
 
-        final SeekBar smoothChanger = (SeekBar) findViewById(R.id.smoothChanger);
+        final SeekBar smoothChanger = (SeekBar) getView().findViewById(R.id.smoothChanger);
         smoothChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -97,7 +120,7 @@ public class Lab1Activity extends AppCompatActivity {
             }
         });
 
-        final SeekBar sensetiveChanger = (SeekBar) findViewById(R.id.sensetiveChanger);
+        final SeekBar sensetiveChanger = (SeekBar) getView().findViewById(R.id.sensetiveChanger);
         sensetiveChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -187,5 +210,44 @@ public class Lab1Activity extends AppCompatActivity {
         //graph.getViewport().setScrollable(true);
         //graph.canScrollHorizontally(0);
     }
-}
 
+
+        // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    /*@Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+}

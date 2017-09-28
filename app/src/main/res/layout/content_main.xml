@@ -11,7 +11,7 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +29,6 @@
         android:layout_height="256dp"
         android:layout_weight="12.04"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ai_img" />
+        app:srcCompat="@drawable/ai_img" />-->
 
 </LinearLayout>

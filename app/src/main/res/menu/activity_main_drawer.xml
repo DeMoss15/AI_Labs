@@ -10,7 +10,7 @@
             android:title="Simple chat bot" />
         <item
             android:id="@+id/lab3"
-            android:title="Lab 3" />
+            android:title="Semantic net" />
         <item
             android:id="@+id/lab4"
             android:title="Lab 4" />

@@ -4,7 +4,7 @@ package com.example.daniel.ai_labs;
  * Created by Daniel on 18.09.2017.
  */
 
-final class Girl {
+final public class Girl {
 
     private int shift;
     private double percentage;
@@ -12,13 +12,13 @@ final class Girl {
     private static int smoothing = 2;
     private static int sensebility = 2;
 
-    Girl(int shiftP, String hairColorP, double percentageP) {
+    public Girl(int shiftP, String hairColorP, double percentageP) {
         shift = shiftP;
         percentage = percentageP;
         hairColor = hairColorP;
     }
 
-    double function(double x) {
+    public double function(double x) {
         /*a - shift of func
         * b - sensebility
         * с - smoothing
@@ -36,7 +36,7 @@ final class Girl {
         return hairColor;
     }
 
-    String getTone() {
+    public String getTone() {
         String res = "";
         if (percentage < 1)
             return res;
@@ -57,27 +57,27 @@ final class Girl {
         return shift;
     }
 
-    double getPercentage() {
+    public double getPercentage() {
         return percentage;
     }
 
-    void setPercentage(double newPercentage) {
+    public void setPercentage(double newPercentage) {
         percentage = newPercentage;
     }
 
-    static void setSmoothing(int smoothing1) {
+    public static void setSmoothing(int smoothing1) {
         smoothing = smoothing1;
     }
 
-    static int getSmoothing() {
+    public static int getSmoothing() {
         return smoothing;
     }
 
-    static void setSensebility(int sensebility1) {
+    public static void setSensebility(int sensebility1) {
         sensebility = sensebility1;
     }
 
-    static int getSensebility() {
+    public static int getSensebility() {
         return sensebility;
     }
 }
