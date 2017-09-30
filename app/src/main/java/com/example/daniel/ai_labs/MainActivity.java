@@ -14,12 +14,16 @@ import android.view.MenuItem;
 
 import com.example.daniel.ai_labs.fragments.Lab1;
 import com.example.daniel.ai_labs.fragments.Lab2;
+import com.example.daniel.ai_labs.fragments.Lab3;
+import com.example.daniel.ai_labs.fragments.Lab4;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Lab1 fragmentLab1;
     Lab2 fragmentLab2;
+    Lab3 fragmentLab3;
+    Lab4 fragmentLab4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity
 
         fragmentLab1 = new Lab1();
         fragmentLab2 = new Lab2();
+        fragmentLab3 = new Lab3();
+        fragmentLab4 = new Lab4();
         getFragmentManager().beginTransaction().replace(R.id.main_container, fragmentLab1).commit();
     }
 
@@ -87,9 +93,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.lab2) {
             ftrans.replace(R.id.main_container, fragmentLab2);
         } else if (id == R.id.lab3) {
-
+            ftrans.replace(R.id.main_container, fragmentLab3);
         } else if (id == R.id.lab4) {
-
+            ftrans.replace(R.id.main_container, fragmentLab4);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

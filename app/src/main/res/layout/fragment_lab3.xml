@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="false"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context="com.example.daniel.ai_labs.fragments.Lab3">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_weight="0.9"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/messageField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0.1"
+        android:background="@color/colorMessagePanel"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/userMessageInput"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="0.8"
+            android:elevation="1dp"
+            android:ems="10"
+            android:hint="Enter your message"
+            android:inputType="textMultiLine"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/enter"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:text="Send" />
+
+    </LinearLayout>
+
+</LinearLayout>

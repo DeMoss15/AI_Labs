@@ -13,7 +13,7 @@
             android:title="Semantic net" />
         <item
             android:id="@+id/lab4"
-            android:title="Lab 4" />
+            android:title="Expert System" />
     </group>
 
     <item android:title="Communicate">

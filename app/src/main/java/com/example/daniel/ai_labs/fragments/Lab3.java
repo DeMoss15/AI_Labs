@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +11,26 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.daniel.ai_labs.ChatBot;
 import com.example.daniel.ai_labs.R;
+import com.example.daniel.ai_labs.SemaNet;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Lab2.OnFragmentInteractionListener} interface
+ * {@link Lab3.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Lab2#newInstance} factory method to
+ * Use the {@link Lab3#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Lab2 extends Fragment {
+public class Lab3 extends Fragment {
 
     Button enter;
     TextView inputField;
     LinearLayout messagesField;
-    final String TAG = "Message";
-    final ChatBot MyBot = ChatBot.getInstance();
 
     private OnFragmentInteractionListener mListener;
 
-    public Lab2() {
+    public Lab3() {
         // Required empty public constructor
     }
 
@@ -46,24 +43,25 @@ public class Lab2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lab2, container, false);
+        return inflater.inflate(R.layout.fragment_lab3, container, false);
     }
 
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         enter = (Button) view.findViewById(R.id.enter);
         inputField = (TextView) view.findViewById(R.id.userMessageInput);
         messagesField = (LinearLayout) view.findViewById(R.id.messageField);
+        final SemaNet MySemaNet = SemaNet.getInstance();
 
-        sendMessage(false, "Привет! Я чатбот Кеша. А как тебя зовут?", inflater);
+        sendMessage(false,
+                MySemaNet.welcomeMessage(),
+                inflater);
 
         View.OnClickListener OnCLickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v == null || !(v instanceof TextView)) {
-                    Log.d(TAG, "нет свойства text");
                     return; //нет свойства text
                 }
                 switch (v.getId()) {
@@ -71,9 +69,10 @@ public class Lab2 extends Fragment {
                         sendMessage(true, inputField.getText().toString(), inflater);
                         sendMessage(
                                 false,
-                                MyBot.generateAnswer(inputField.getText().toString()),
+                                MySemaNet.generateAnswer(inputField.getText().toString()),
                                 inflater);
                         inputField.setText("");
+                        enter.setEnabled(!MySemaNet.isEnoughData());
                         break;
                 }
             }
@@ -89,23 +88,20 @@ public class Lab2 extends Fragment {
 
         if (isUsersMessage) { //user?
             messagePattern = inflater.inflate(R.layout.user_message_pattern, messagesField, false);
-            Log.d(TAG, "создание сообщения от юзера");
 
             TextView messageView = (TextView) messagePattern.findViewById(R.id.userMessage);
             messageView.setText(message);
         } else {
             messagePattern = inflater.inflate(R.layout.answer_pattern, messagesField, false);
-            Log.d(TAG, "создание сообщения от Bota");
 
             TextView messageView = (TextView) messagePattern.findViewById(R.id.answerMessage);
             messageView.setText(message);
         }
 
-        Log.d(TAG, "отправка сообщения в поле");
         messagesField.addView(messagePattern);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+        // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

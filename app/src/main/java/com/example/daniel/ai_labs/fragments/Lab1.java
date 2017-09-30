@@ -54,13 +54,13 @@ public class Lab1 extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        xValue = (TextView) getView().findViewById(R.id.xValue);
-        sensetiveValue = (TextView) getView().findViewById(R.id.sensetiveValue);
-        blondePercent = (TextView) getView().findViewById(R.id.blondePercent);
-        redPercent = (TextView) getView().findViewById(R.id.redPercent);
-        brunetePercent = (TextView) getView().findViewById(R.id.brunetePercent);
-        textResult = (TextView) getView().findViewById(R.id.textResult);
-        graph = (GraphView) getView().findViewById(R.id.graph);
+        xValue = (TextView) view.findViewById(R.id.xValue);
+        sensetiveValue = (TextView) view.findViewById(R.id.sensetiveValue);
+        blondePercent = (TextView) view.findViewById(R.id.blondePercent);
+        redPercent = (TextView) view.findViewById(R.id.redPercent);
+        brunetePercent = (TextView) view.findViewById(R.id.brunetePercent);
+        textResult = (TextView) view.findViewById(R.id.textResult);
+        graph = (GraphView) view.findViewById(R.id.graph);
 
         // set manual X bounds
         graph.getViewport().setYAxisBoundsManual(true);
@@ -82,7 +82,7 @@ public class Lab1 extends Fragment {
         onChanges();
         buildGraph();
 
-        final SeekBar xChanger = (SeekBar) getView().findViewById(R.id.xChanger);
+        final SeekBar xChanger = (SeekBar) view.findViewById(R.id.xChanger);
         xChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -101,7 +101,7 @@ public class Lab1 extends Fragment {
             }
         });
 
-        final SeekBar smoothChanger = (SeekBar) getView().findViewById(R.id.smoothChanger);
+        final SeekBar smoothChanger = (SeekBar) view.findViewById(R.id.smoothChanger);
         smoothChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -120,7 +120,7 @@ public class Lab1 extends Fragment {
             }
         });
 
-        final SeekBar sensetiveChanger = (SeekBar) getView().findViewById(R.id.sensetiveChanger);
+        final SeekBar sensetiveChanger = (SeekBar) view.findViewById(R.id.sensetiveChanger);
         sensetiveChanger.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
