@@ -77,9 +77,11 @@ final public class SemaNet {
 
         String res = "";
 
-        for (Map.Entry<String, Integer> i : mAssociativeArray.entrySet()) {
-            res += i.getKey() + " : " + i.getValue() + "\n";
-        }
+        if (!mAssociativeArray.isEmpty()){
+            for (Map.Entry<String, Integer> i : mAssociativeArray.entrySet()) {
+                res += i.getKey() + " : " + i.getValue() + "\n";
+            }
+        } else res = "Введенное вами слово не найдено!";
 
         return res;
     }
