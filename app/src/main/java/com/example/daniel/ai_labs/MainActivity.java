@@ -1,7 +1,6 @@
 package com.example.daniel.ai_labs;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +15,8 @@ import com.example.daniel.ai_labs.fragments.Lab1;
 import com.example.daniel.ai_labs.fragments.Lab2;
 import com.example.daniel.ai_labs.fragments.Lab3;
 import com.example.daniel.ai_labs.fragments.Lab4;
+import com.example.daniel.ai_labs.fragments.Lab5;
+import com.example.daniel.ai_labs.fragments.Lab6;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity
     Lab2 fragmentLab2;
     Lab3 fragmentLab3;
     Lab4 fragmentLab4;
+    Lab5 fragmentLab5;
+    Lab6 fragmentLab6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity
         fragmentLab2 = new Lab2();
         fragmentLab3 = new Lab3();
         fragmentLab4 = new Lab4();
+        fragmentLab5 = new Lab5();
+        fragmentLab6 = new Lab6();
         getFragmentManager().beginTransaction().replace(R.id.main_container, fragmentLab1).commit();
     }
 
@@ -96,6 +101,10 @@ public class MainActivity extends AppCompatActivity
             ftrans.replace(R.id.main_container, fragmentLab3);
         } else if (id == R.id.lab4) {
             ftrans.replace(R.id.main_container, fragmentLab4);
+        } else if (id == R.id.lab5) {
+            ftrans.replace(R.id.main_container, fragmentLab5);
+        } else if (id == R.id.lab6) {
+            ftrans.replace(R.id.main_container, fragmentLab6);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
