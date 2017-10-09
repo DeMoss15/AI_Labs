@@ -1,6 +1,5 @@
 package com.example.daniel.ai_labs.fragments;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;

@@ -35,4 +35,8 @@ final public class ExpertSystem {
         res =  mKnowlegeBase.getData(mUserDecisions);
         return res;
     }
+
+    public void Destroy() {
+        mKnowlegeBase.Destroy();
+    }
 }

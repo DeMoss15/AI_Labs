@@ -40,12 +40,220 @@ final public class DBKnowlegeBase extends SQLiteOpenHelper{
 
         sqLiteDatabase.execSQL(CREATE_TABLE);
 
-        ContentValues values = new ContentValues();;
+        ContentValues values = new ContentValues();
         values.put(KEY_CHOICE, "000");
-        values.put(KEY_QUESTION, "Как дела?");
-        values.put(KEY_VARIANT1, "Отлично");
-        values.put(KEY_VARIANT2, "Хреново");
-        values.put(KEY_VARIANT3, "Норм");
+        values.put(KEY_QUESTION, "Какой жанр вам нравится?");
+        values.put(KEY_VARIANT1, "Метал");
+        values.put(KEY_VARIANT2, "Джаз/Блюз");
+        values.put(KEY_VARIANT3, "Классика");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "100");
+        values.put(KEY_QUESTION, "Какой вокал вам нравится?");
+        values.put(KEY_VARIANT1, "Чистый");
+        values.put(KEY_VARIANT2, "Экстрим");
+        values.put(KEY_VARIANT3, "Смешанный");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "110");
+        values.put(KEY_QUESTION, "Какой язык исполнения предпочтительней?");
+        values.put(KEY_VARIANT1, "Русский");
+        values.put(KEY_VARIANT2, "Украинский");
+        values.put(KEY_VARIANT3, "Английский");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "120");
+        values.put(KEY_QUESTION, "Какой жанр вы любите?");
+        values.put(KEY_VARIANT1, "Thrash metal");
+        values.put(KEY_VARIANT2, "Death metal");
+        values.put(KEY_VARIANT3, "Doom metal");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "130");
+        values.put(KEY_QUESTION, "Какой жанр вы любите?");
+        values.put(KEY_VARIANT1, "Melodic Death Metal");
+        values.put(KEY_VARIANT2, "Melodic Metalcore");
+        values.put(KEY_VARIANT3, "Alternative Metal");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "111");
+        values.put(KEY_QUESTION, "Lumen");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "112");
+        values.put(KEY_QUESTION, "Океан Ельзи");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "113");
+        values.put(KEY_QUESTION, "Metallica");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "121");
+        values.put(KEY_QUESTION, "Slayer");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "122");
+        values.put(KEY_QUESTION, "Obituary");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "123");
+        values.put(KEY_QUESTION, "Grave Worm");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "131");
+        values.put(KEY_QUESTION, "Bullet for my Valentine");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "132");
+        values.put(KEY_QUESTION, "Trivium");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "133");
+        values.put(KEY_QUESTION, "Slipknot");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "200");
+        values.put(KEY_QUESTION, "Какой темп музыки для вас предпочтительней?");
+        values.put(KEY_VARIANT1, "Быстрый");
+        values.put(KEY_VARIANT2, "Медленный");
+        values.put(KEY_VARIANT3, "Средний");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();;
+        values.put(KEY_CHOICE, "210 220 230");
+        values.put(KEY_QUESTION, "Какой инструмент задаёт лейтмотив вашим любимым песням?");
+        values.put(KEY_VARIANT1, "Саксофон");
+        values.put(KEY_VARIANT2, "Гитара");
+        values.put(KEY_VARIANT3, "Вокал");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "211");
+        values.put(KEY_QUESTION, "Dave Koz");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "212");
+        values.put(KEY_QUESTION, "Может вам все-таки метал нравится?)");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();;
+        values.put(KEY_CHOICE, "213");
+        values.put(KEY_QUESTION, "Alannah Myles");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "221");
+        values.put(KEY_QUESTION, "Everette Harp");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "222");
+        values.put(KEY_QUESTION, "Kelly Joe Phelps");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "223");
+        values.put(KEY_QUESTION, "Beth Hart");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "231");
+        values.put(KEY_QUESTION, "Средний саксофон");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "232");
+        values.put(KEY_QUESTION, "Keb' Mo'");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "233");
+        values.put(KEY_QUESTION, "JD McPherson");
+        values.put(KEY_VARIANT1, "");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "300");
+        values.put(KEY_QUESTION, "Классика");
+        values.put(KEY_VARIANT1, "1");
+        values.put(KEY_VARIANT2, "2");
+        values.put(KEY_VARIANT3, "3");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "310 320 330");
+        values.put(KEY_QUESTION, "Классика 2");
+        values.put(KEY_VARIANT1, "Вариант");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
         sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
 
@@ -58,10 +266,11 @@ final public class DBKnowlegeBase extends SQLiteOpenHelper{
 
     public String[] getData(int[] userDecisions) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] result = {"n", "u", "l", "l"};
+        String[] result = {"" +
+                "ERROR\nPage undefined", "", "", ""};
 
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_CHOICE + " LIKE '"
-                + userDecisions[0] + "" + userDecisions[1] + "" + userDecisions[2] + "'";
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_CHOICE + " LIKE '%"
+                + userDecisions[0] + "" + userDecisions[1] + "" + userDecisions[2] + "%'";
 
         //if adding month already in DB, return cursor
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -72,5 +281,10 @@ final public class DBKnowlegeBase extends SQLiteOpenHelper{
         }
 
         return result;
+    }
+
+
+    public void Destroy() {
+        onUpgrade(this.getWritableDatabase(), 1, 1);
     }
 }

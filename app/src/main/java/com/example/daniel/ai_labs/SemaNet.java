@@ -1,6 +1,7 @@
 package com.example.daniel.ai_labs;
 
-import java.util.HashMap;
+import android.util.Log;
+
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -18,11 +19,15 @@ final public class SemaNet {
     private String[] mSplitedText;// splited text
     private boolean mIsEnoughData = false;//status of button 'send'
     private Map<String, Integer> mAssociativeArray = new LinkedHashMap<>();//map of word and it's weight
+    private String[] endingsArray;
 
     private SemaNet() {
         mAnswers.add("Какой текст будем анализировать?");
         mAnswers.add("На какое слово опираться?");
         mAnswers.add("Мавр сделал свое дело, Мавр может уходить!");
+
+        endingsArray = ("а я ы е у ю ой ёй е и о ом ем яя ая ое ее ие ые" +
+                "ешь ет ем ете ут ют  ишь ит им ите ат ят").split(" ");
     }
 
     public static SemaNet getInstance() {
@@ -81,7 +86,9 @@ final public class SemaNet {
             for (Map.Entry<String, Integer> i : mAssociativeArray.entrySet()) {
                 res += i.getKey() + " : " + i.getValue() + "\n";
             }
-        } else res = "Введенное вами слово не найдено!";
+        } else {
+            res = "Введенное вами слово не найдено!";
+        }
 
         return res;
     }
@@ -97,28 +104,24 @@ final public class SemaNet {
 
     private void splitText() {
         String text = mValues.get("text").toLowerCase();
-        boolean isTextClear = false;
-        while (!isTextClear) {
-            if (text.contains(".")) {
-                text = text.substring(0, text.indexOf(".")) +
-                        text.substring(text.indexOf(".") + 1);
-            } else  if (text.contains(",")) {
-                text = text.substring(0, text.indexOf(",")) +
-                        text.substring(text.indexOf(",") + 1);
-            } else if (text.contains("!")) {
-                text = text.substring(0, text.indexOf("!")) +
-                        text.substring(text.indexOf("!") + 1);
-            } else  if (text.contains("?")) {
-                text = text.substring(0, text.indexOf("?")) +
-                        text.substring(text.indexOf("?") + 1);
-            } else if (text.contains(";")) {
-                text = text.substring(0, text.indexOf(";")) +
-                        text.substring(text.indexOf(";") + 1);
-            } else if (text.contains(":")) {
-                text = text.substring(0, text.indexOf(":")) +
-                        text.substring(text.indexOf(":") + 1);
-            } else isTextClear = true;
-        }
+
+        text = text.replaceAll("\\s", "_");
+        text = text.replaceAll("\\W", "");
+        text = text.replaceAll("_", " ");
+        Log.d("Text", text);
+
         mSplitedText = text.split(" ");
+
+        for (String aMSplitedText : mSplitedText) {
+            for (String anEndingsArray : endingsArray)
+                if (aMSplitedText.length() >= 4)
+                    aMSplitedText = replaceEnding(aMSplitedText, anEndingsArray);
+        }
+    }
+
+    private String replaceEnding(String text, String ending) {
+        if (text.endsWith(ending))
+            return text.substring(0, text.length() - ending.length() - 1);
+        return text;
     }
 }

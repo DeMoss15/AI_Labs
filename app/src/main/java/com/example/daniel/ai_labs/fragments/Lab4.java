@@ -94,13 +94,17 @@ public class Lab4 extends Fragment {
 
     private void changeText(int decision) {
         mMyExpert.addDecision(decision);
-        String[] test = mMyExpert.getNewVariants();
-        if (test != null && test.length == 4) {
-            mQuestion.setText(test[0]);
-            mVariant1.setText(test[1]);
-            mVariant2.setText(test[2]);
-            mVariant3.setText(test[3]);
+        String[] text = mMyExpert.getNewVariants();
+        if (text != null && text.length == 4) {
+            mQuestion.setText(text[0]);
+            mVariant1.setText(text[1]);
+            mVariant2.setText(text[2]);
+            mVariant3.setText(text[3]);
         }
+
+        mVariant1.setEnabled(!mVariant1.getText().toString().equals(""));
+        mVariant2.setEnabled(!mVariant2.getText().toString().equals(""));
+        mVariant3.setEnabled(!mVariant3.getText().toString().equals(""));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -125,6 +129,12 @@ public class Lab4 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        mMyExpert.Destroy();
+        super.onDestroy();
     }
 
     /**
