@@ -13,23 +13,23 @@ import java.util.Random;
 final public class ChatBot {
 
     private static ChatBot pointerToBot = new ChatBot();
-    private Map<String, String> answersDicrionary = new HashMap<>();
+    private Map<String[], String> answersDicrionary = new HashMap<>();
     private List<String> defaultAnswer = new ArrayList<>();
 
     private ChatBot() {
-        answersDicrionary.put("прив", "Тебе нравятся животные?");
-        answersDicrionary.put("не нарв", "Жаль, в я вот люблю животных! А почему?");
-        answersDicrionary.put("нрав", "Круто! А у тебя есть домашний питомец? Это кот?");
-        answersDicrionary.put("кот", "ммм ШАУРМЯЮ!)");
-        answersDicrionary.put("соба", "Так ты бегаешь по утрам? XD");
-        answersDicrionary.put("попуг", "Его случайно не Кеша зовут?)");
-        answersDicrionary.put("рыб", "А золотая тебе не встречалась?");
-        answersDicrionary.put("хомя", "Ты его сегодня утром видел?");
-        answersDicrionary.put("у меня не", "");
-        /*answersDicrionary.put("", "");
-        answersDicrionary.put("", "");
-        answersDicrionary.put("", "");
-        answersDicrionary.put("", "");*/
+        answersDicrionary.put(new String[]{"1", "2", "5"}, "Тебе нравятся животные?");
+        answersDicrionary.put(new String[]{"3", "4", "5"}, "Жаль, в я вот люблю животных! А почему?");
+        answersDicrionary.put(new String[]{"1", "2", "3"}, "Круто! А у тебя есть домашний питомец? Это кот?");
+        answersDicrionary.put(new String[]{"", ""}, "ммм ШАУРМЯЮ!)");
+        answersDicrionary.put(new String[]{"", ""}, "Так ты бегаешь по утрам? XD");
+        answersDicrionary.put(new String[]{"", ""}, "Его случайно не Кеша зовут?)");
+        answersDicrionary.put(new String[]{"", ""}, "А золотая тебе не встречалась?");
+        answersDicrionary.put(new String[]{"", ""}, "Ты его сегодня утром видел?");
+        answersDicrionary.put(new String[]{"", ""}, "");
+        /*answersDicrionary.put(new String[]{"", ""}, "");
+        answersDicrionary.put(new String[]{"", ""}, "");
+        answersDicrionary.put(new String[]{"", ""}, "");
+        answersDicrionary.put(new String[]{"", ""}, "");*/
 
         defaultAnswer.add("Не понимаю о чем Вы...");
         defaultAnswer.add("Fatal Error");
@@ -44,11 +44,27 @@ final public class ChatBot {
     public String generateAnswer(String uMessage) {
         String userMessage = uMessage.toLowerCase();
 
-        for (Map.Entry<String, String> i : answersDicrionary.entrySet()) {
-            if (userMessage.contains(i.getKey()))
-                return i.getValue();
+        String answer = "";
+        int highestCoef = 0;
+
+        for (Map.Entry<String[], String> i : answersDicrionary.entrySet()) {
+
+            int counterOfCoincidence = 0;
+
+            for (String iteratorKey : i.getKey()) {
+                if (userMessage.contains(iteratorKey))
+                    counterOfCoincidence++;
+            }
+
+            if (counterOfCoincidence > highestCoef) {
+                highestCoef = counterOfCoincidence;
+                answer = i.getValue();
+            }
         }
 
-        return defaultAnswer.get(new Random().nextInt(defaultAnswer.size()));
+        if (!answer.isEmpty())
+            return answer;
+        else
+            return defaultAnswer.get(new Random().nextInt(defaultAnswer.size()));
     }
 }
