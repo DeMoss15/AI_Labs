@@ -69,10 +69,14 @@ public class Lab2 extends Fragment {
                 switch (v.getId()) {
                     case R.id.enter:
                         sendMessage(true, inputField.getText().toString(), inflater);
-                        sendMessage(
-                                false,
-                                MyBot.generateAnswer(inputField.getText().toString()),
-                                inflater);
+                        if (MyBot.isUNameSetted()) {
+                            sendMessage(
+                                    false,
+                                    MyBot.generateAnswer(inputField.getText().toString()),
+                                    inflater);
+                        } else {
+                            MyBot.setName(inputField.getText().toString());
+                        }
                         inputField.setText("");
                         break;
                 }

@@ -27,7 +27,7 @@ final public class SemaNet {
         mAnswers.add("Мавр сделал свое дело, Мавр может уходить!");
 
         endingsArray = ("а я ы е у ю ой ёй е и о ом ем яя ая ое ее ие ые" +
-                "ешь ет ем ете ут ют  ишь ит им ите ат ят").split(" ");
+                "ешь ет ем ете ут ют ишь ит им ите ат ят").split(" ");
     }
 
     public static SemaNet getInstance() {
@@ -46,6 +46,8 @@ final public class SemaNet {
     }
 
     public String generateAnswer(String userMessage) {
+
+        userMessage = userMessage.toLowerCase();
         if (mValues.isEmpty()) {
 
             mValues.put("text", userMessage);
@@ -68,7 +70,7 @@ final public class SemaNet {
         * Write here alghorithm of analyzing text
         * */
         for (int i = 0; i < mSplitedText.length; i++) {
-            if (mSplitedText[i].equals(mValues.get("word"))) {
+            if (mValues.get("word").contains(mSplitedText[i])) {
                 if (0 <= i-2)
                     addNewWeight(mSplitedText[i-2], 1);
                 if (mSplitedText.length > i+2)
@@ -105,9 +107,7 @@ final public class SemaNet {
     private void splitText() {
         String text = mValues.get("text").toLowerCase();
 
-        text = text.replaceAll("\\s", "_");
-        text = text.replaceAll("\\W", "");
-        text = text.replaceAll("_", " ");
+        text = text.replaceAll("\\s", "_").replaceAll("\\W", "").replaceAll("_", " ");
         Log.d("Text", text);
 
         mSplitedText = text.split(" ");
@@ -115,13 +115,16 @@ final public class SemaNet {
         for (String aMSplitedText : mSplitedText) {
             for (String anEndingsArray : endingsArray)
                 if (aMSplitedText.length() >= 4)
-                    aMSplitedText = replaceEnding(aMSplitedText, anEndingsArray);
+                    if (replaceEnding(aMSplitedText, anEndingsArray))
+                        break;
         }
     }
 
-    private String replaceEnding(String text, String ending) {
-        if (text.endsWith(ending))
-            return text.substring(0, text.length() - ending.length() - 1);
-        return text;
+    private boolean replaceEnding(String text, String ending) {
+        if (text.endsWith(ending)) {
+            text = text.substring(0, text.length() - ending.length() - 1);
+            return true;
+        }
+        return false;
     }
 }

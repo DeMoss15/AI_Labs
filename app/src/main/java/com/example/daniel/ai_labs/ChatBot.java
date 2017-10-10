@@ -15,9 +15,10 @@ final public class ChatBot {
     private static ChatBot pointerToBot = new ChatBot();
     private Map<String[], String> answersDicrionary = new HashMap<>();
     private List<String> defaultAnswer = new ArrayList<>();
+    private String mUserName = "username";
 
     private ChatBot() {
-        answersDicrionary.put(new String[]{"1", "2", "5"}, "Тебе нравятся животные?");
+        answersDicrionary.put(new String[]{"1", "2", "5"}, "username, а тебе нравятся животные?");
         answersDicrionary.put(new String[]{"3", "4", "5"}, "Жаль, в я вот люблю животных! А почему?");
         answersDicrionary.put(new String[]{"1", "2", "3"}, "Круто! А у тебя есть домашний питомец? Это кот?");
         answersDicrionary.put(new String[]{"", ""}, "ммм ШАУРМЯЮ!)");
@@ -61,10 +62,19 @@ final public class ChatBot {
                 answer = i.getValue();
             }
         }
+        answer = answer.replace("username", mUserName);
 
         if (!answer.isEmpty())
             return answer;
         else
             return defaultAnswer.get(new Random().nextInt(defaultAnswer.size()));
+    }
+
+    public boolean isUNameSetted() {
+        return !mUserName.equals("username");
+    }
+
+    public void setName(String name) {
+        this.mUserName = name;
     }
 }
