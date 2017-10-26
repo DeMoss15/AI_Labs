@@ -2,8 +2,13 @@ package com.example.daniel.ai_labs;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,15 +24,15 @@ final public class SemaNet {
     private String[] mSplitedText;// splited text
     private boolean mIsEnoughData = false;//status of button 'send'
     private Map<String, Integer> mAssociativeArray = new LinkedHashMap<>();//map of word and it's weight
-    private String[] endingsArray;
+    private String[] endingsArray;// array for word endings
 
     private SemaNet() {
         mAnswers.add("Какой текст будем анализировать?");
         mAnswers.add("На какое слово опираться?");
         mAnswers.add("Мавр сделал свое дело, Мавр может уходить!");
 
-        endingsArray = ("а я ы е у ю ой ёй е и о ом ем яя ая ое ее ие ые" +
-                "ешь ет ем ете ут ют ишь ит им ите ат ят").split(" ");
+        endingsArray = ("ешь ете ишь ите ет ем ут ют ит им ат ят ой ёй ом ем яя ая ое ее ие ые " +
+                "а я ы е у ю е и о").split(" ");
     }
 
     public static SemaNet getInstance() {
@@ -84,6 +89,8 @@ final public class SemaNet {
 
         String res = "";
 
+        mAssociativeArray = sortByValue(mAssociativeArray);
+
         if (!mAssociativeArray.isEmpty()){
             for (Map.Entry<String, Integer> i : mAssociativeArray.entrySet()) {
                 res += i.getKey() + " : " + i.getValue() + "\n";
@@ -93,6 +100,26 @@ final public class SemaNet {
         }
 
         return res;
+    }
+
+    private static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map ){
+        List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
+
+        Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+        {
+            @Override
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2)
+            {
+                return (o1.getValue()).compareTo( o2.getValue() );
+            }
+        } );
+
+        Map<K, V> result = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : list)
+        {
+            result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
     }
 
     private void addNewWeight(String key, int weight) {
@@ -108,23 +135,33 @@ final public class SemaNet {
         String text = mValues.get("text").toLowerCase();
 
         text = text.replaceAll("\\s", "_").replaceAll("\\W", "").replaceAll("_", " ");
+        text = text.replaceAll("\\s.\\s", " ").replaceAll("\\s..\\s", " ");
         Log.d("Text", text);
+
+        for (String ending : endingsArray)
+            text = text.replaceAll(ending + "\\s", " ");
 
         mSplitedText = text.split(" ");
 
-        for (String aMSplitedText : mSplitedText) {
-            for (String anEndingsArray : endingsArray)
-                if (aMSplitedText.length() >= 4)
-                    if (replaceEnding(aMSplitedText, anEndingsArray))
+        /*for (String word : mSplitedText) {
+            for (String ending : endingsArray){
+                if (word.length() >= 4){
+                    *//*if (replaceEnding(word, ending))
+                        break;*//*
+                    if (word.endsWith(ending)) {
+                        word = word.substring(0, word.length() - ending.length() - 1);
                         break;
-        }
+                    }
+                }
+            }
+        }*/
     }
 
-    private boolean replaceEnding(String text, String ending) {
-        if (text.endsWith(ending)) {
-            text = text.substring(0, text.length() - ending.length() - 1);
+   /* private boolean replaceEnding(String word, String ending) {
+        if (word.endsWith(ending)) {
+            word = word.substring(0, word.length() - ending.length() - 1);
             return true;
         }
         return false;
-    }
+    }*/
 }

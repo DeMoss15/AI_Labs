@@ -218,7 +218,7 @@ final public class DBKnowlegeBase extends SQLiteOpenHelper{
 
         values = new ContentValues();
         values.put(KEY_CHOICE, "231");
-        values.put(KEY_QUESTION, "Средний саксофон");
+        values.put(KEY_QUESTION, "Louis Armstrong");
         values.put(KEY_VARIANT1, "");
         values.put(KEY_VARIANT2, "");
         values.put(KEY_VARIANT3, "");
@@ -243,15 +243,23 @@ final public class DBKnowlegeBase extends SQLiteOpenHelper{
         values = new ContentValues();
         values.put(KEY_CHOICE, "300");
         values.put(KEY_QUESTION, "Классика");
-        values.put(KEY_VARIANT1, "1");
-        values.put(KEY_VARIANT2, "2");
-        values.put(KEY_VARIANT3, "3");
+        values.put(KEY_VARIANT1, "Вариант 1");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "Вариант 3");
         sqLiteDatabase.insert(TABLE_NAME, null, values);
 
         values = new ContentValues();
         values.put(KEY_CHOICE, "310 320 330");
         values.put(KEY_QUESTION, "Классика 2");
-        values.put(KEY_VARIANT1, "Вариант");
+        values.put(KEY_VARIANT1, "Вариант 1");
+        values.put(KEY_VARIANT2, "");
+        values.put(KEY_VARIANT3, "");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(KEY_CHOICE, "311 312 313 321 322 323 331 332 333");
+        values.put(KEY_QUESTION, "Вся классика прекрасна)");
+        values.put(KEY_VARIANT1, "");
         values.put(KEY_VARIANT2, "");
         values.put(KEY_VARIANT3, "");
         sqLiteDatabase.insert(TABLE_NAME, null, values);

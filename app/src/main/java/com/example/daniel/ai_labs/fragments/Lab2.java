@@ -68,15 +68,19 @@ public class Lab2 extends Fragment {
                 }
                 switch (v.getId()) {
                     case R.id.enter:
-                        sendMessage(true, inputField.getText().toString(), inflater);
-                        if (MyBot.isUNameSetted()) {
-                            sendMessage(
-                                    false,
-                                    MyBot.generateAnswer(inputField.getText().toString()),
+                        String userMessage = inputField.getText().toString();
+
+                        sendMessage(true, userMessage, inflater); //sending message to chat field
+
+                        if (userMessage.isEmpty())
+                            break;
+
+                        //generating answer and sending it to message field
+                        sendMessage(false,
+                                    MyBot.generateAnswer(userMessage),
                                     inflater);
-                        } else {
-                            MyBot.setName(inputField.getText().toString());
-                        }
+
+                        //reset input field
                         inputField.setText("");
                         break;
                 }
@@ -131,6 +135,7 @@ public class Lab2 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        MyBot.ReserBot();
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.example.daniel.ai_labs.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -129,6 +128,7 @@ public class Lab4 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mMyExpert.Destroy();
     }
 
     @Override
