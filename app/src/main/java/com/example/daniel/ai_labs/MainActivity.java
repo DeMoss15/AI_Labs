@@ -105,13 +105,10 @@ public class MainActivity extends AppCompatActivity
             ftrans.replace(R.id.main_container, fragmentLab5);
         } else if (id == R.id.lab6) {
             ftrans.replace(R.id.main_container, fragmentLab6);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         ftrans.commit();
+        item.setChecked(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

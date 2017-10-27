@@ -1,25 +1,55 @@
 package com.example.daniel.ai_labs.fragments;
 
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.daniel.ai_labs.Neuron;
 import com.example.daniel.ai_labs.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Lab5.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Lab5#newInstance} factory method to
- * create an instance of this fragment.
- */
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Lab5 extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    @BindView(R.id.button_train)
+    Button mButtonTrain;
+    @BindView(R.id.tv_iterations)
+    TextView mTextViewInteraction;
+    @BindView(R.id.tv_result)
+    TextView mTextViewResult;
+    @BindView(R.id.tv_sum)
+    TextView mTextViewSum;
+    @BindView(R.id.tv_weights_after)
+    TextView mTextViewWeightAfter;
+    @BindView(R.id.tv_weights_before)
+    TextView mTextViewWeightBefore;
+    @BindView(R.id.input_speed)
+    TextView mTextViewSpeed;
+    @BindView(R.id.input_vector)
+    TextView mTextViewVector;
+    @BindView(R.id.spinner_expected_results)
+    Spinner mSpinnerExpectedResults;
+    @BindView(R.id.spinner_vectors)
+    Spinner mSpinnerVectors;
+
+    String[] mVectors = {"not chosen",
+            "1 1 1 1 0 0 0", "1 1 1 0 0 0 0", "1 1 1 1 0 1 0",
+            "0 0 0 0 1 1 1", "0 0 0 1 1 1 1", "0 0 0 0 1 0 1"};
+
+    Integer[] mResults = {0, 1};
+    Neuron mMyNeuron = Neuron.getInstance();
+    String mUsersInputVector = "";
+    Double mUsersInputSpeed = null;
 
     public Lab5() {
         // Required empty public constructor
@@ -34,45 +64,155 @@ public class Lab5 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lab5, container, false);
+        View view = inflater.inflate(R.layout.fragment_lab5, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-   /* @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        //setting adapter for vector spinner
+        ArrayAdapter<String> vectorsToSpinnerAdapter =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mVectors);
+        vectorsToSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinnerVectors.setAdapter(vectorsToSpinnerAdapter);
+        mSpinnerVectors.setPrompt("Vectors");
+
+        //setting adapter for results spinner
+        ArrayAdapter<Integer> resultsToSpinnerAdapter =
+                new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_spinner_item, mResults);
+        resultsToSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinnerExpectedResults.setAdapter(resultsToSpinnerAdapter);
+        mSpinnerExpectedResults.setPrompt("Results");
+
+        //setting template for input fields
+        mTextViewVector.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                String text = textView
+                        .getText()
+                        .toString()
+                        .replaceAll("\\D", "");                       ;
+
+                if (text.length() != 7){
+                    Toast toast = Toast.makeText(
+                            getContext(),
+                            "Wrong number of values!",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    text = text.replace("", " ");
+                    text = text.substring(1, text.length() - 1);
+                    mUsersInputVector = text;
+                }
+
+                textView.setText(text);
+                return false;
+            }
+        });
+
+        mTextViewSpeed.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (textView.getText().toString().isEmpty()) {
+                    return false;
+                } else {
+                    double usersSpeed = Double.parseDouble(textView.getText().toString());
+
+                    if (usersSpeed > 1.0d) {
+                        Toast toast = Toast.makeText(
+                                getContext(),
+                                "Your speed makes training unnecessary!\nTry values under 1.0!",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        mUsersInputSpeed = usersSpeed;
+                    }
+                }
+                return false;
+            }
+        });
+
+        //setting on click action
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view == null || !(view instanceof TextView)) {
+                    return; //нет свойства text
+                }
+                switch (view.getId()) {
+                    case R.id.button_train: {
+                        //TODO: validate data in input fields
+                        if (((String)mSpinnerVectors.getSelectedItem()).equals("not chosen") &&
+                                mUsersInputVector.equals("") ||
+                                mUsersInputSpeed == null){
+                            Toast toast = Toast.makeText(
+                                    getContext(),
+                                    "Not enough values to train\nCommit your inputs, please",
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
+                        }
+
+                        int[] vect = new int[7];
+                        String[] strVect;
+
+                        //if user hasn't select vector pattern read vector from input
+                        if (((String)mSpinnerVectors.getSelectedItem()).equals("not chosen")){
+                            strVect = (mTextViewVector.getText().toString().split("\\s"));
+                        } else {
+                            strVect = ((String)mSpinnerVectors.getSelectedItem()).split("\\s");
+                        }
+
+                        //parsing String[] to int[]
+                        for (int i = 0; i < strVect.length; i++) {
+                            vect[i] = Integer.parseInt(strVect[i]);
+                        }
+
+                        mMyNeuron.Train(
+                                (Integer)mSpinnerExpectedResults.getSelectedItem(),
+                                mUsersInputSpeed,
+                                vect);
+
+                        setOutputData(
+                                mMyNeuron.getmResultOfTraining(),
+                                mMyNeuron.getmNumOfIterations(),
+                                mMyNeuron.getmWeightsBefore(),
+                                mMyNeuron.getmWeightsAfter(),
+                                mMyNeuron.getmSum());
+                        break;
+                    }
+                }
+            }
+
+            private void setOutputData(int result, int numberOfIterations,
+                                       double[] weightsBefore, double[] weightsAfter,
+                                       double sum) {
+                mTextViewResult.setText(Integer.toString(result));
+                mTextViewSum.setText(Double.toString(sum));
+                mTextViewInteraction.setText(Integer.toString(numberOfIterations));
+                StringBuilder textWB = new StringBuilder();
+                StringBuilder textWA = new StringBuilder();
+                for (int i = 0; i < weightsBefore.length; i++) {
+                    textWA.append(Double.toString(weightsAfter[i]) + "\n");
+                    textWB.append(Double.toString(weightsBefore[i]) + "\n");
+                }
+                mTextViewWeightAfter.setText(textWA.toString());
+                mTextViewWeightBefore.setText(textWB.toString());
+                Toast toast = Toast.makeText(
+                        getContext(),
+                        "Neuron is trained",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        };
+
+        mButtonTrain.setOnClickListener(myOnClickListener);
     }
 }
