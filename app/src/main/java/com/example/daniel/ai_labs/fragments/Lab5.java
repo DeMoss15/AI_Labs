@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -95,6 +96,7 @@ public class Lab5 extends Fragment {
         mTextViewVector.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                mSpinnerVectors.setSelection((int)mSpinnerVectors.getItemIdAtPosition(0));
                 String text = textView
                         .getText()
                         .toString()
@@ -136,6 +138,19 @@ public class Lab5 extends Fragment {
                     }
                 }
                 return false;
+            }
+        });
+
+        mSpinnerVectors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i != 0)
+                    mTextViewVector.setText("");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
