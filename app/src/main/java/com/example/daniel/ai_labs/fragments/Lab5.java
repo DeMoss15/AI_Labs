@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.example.daniel.ai_labs.Neuron;
 import com.example.daniel.ai_labs.R;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -181,11 +183,11 @@ public class Lab5 extends Fragment {
                                 vect);
 
                         setOutputData(
-                                mMyNeuron.getmResultOfTraining(),
-                                mMyNeuron.getmNumOfIterations(),
-                                mMyNeuron.getmWeightsBefore(),
-                                mMyNeuron.getmWeightsAfter(),
-                                mMyNeuron.getmSum());
+                                mMyNeuron.getResultOfTraining(),
+                                mMyNeuron.getNumOfIterations(),
+                                mMyNeuron.getWeightsBefore(),
+                                mMyNeuron.getWeightsAfter(),
+                                mMyNeuron.getSum());
 
                         showToast("Neuron is trained");
                         break;
@@ -193,11 +195,11 @@ public class Lab5 extends Fragment {
                     case R.id.button_reset:{
                         mMyNeuron.reset();
                         setOutputData(
-                                mMyNeuron.getmResultOfTraining(),
-                                mMyNeuron.getmNumOfIterations(),
-                                mMyNeuron.getmWeightsBefore(),
-                                mMyNeuron.getmWeightsAfter(),
-                                mMyNeuron.getmSum());
+                                mMyNeuron.getResultOfTraining(),
+                                mMyNeuron.getNumOfIterations(),
+                                mMyNeuron.getWeightsBefore(),
+                                mMyNeuron.getWeightsAfter(),
+                                mMyNeuron.getSum());
 
                         showToast("Neuron reset");
                         break;
@@ -208,14 +210,14 @@ public class Lab5 extends Fragment {
             private void setOutputData(int result, int numberOfIterations,
                                        double[] weightsBefore, double[] weightsAfter,
                                        double sum) {
-                mTextViewResult.setText(Integer.toString(result));
-                mTextViewSum.setText(Double.toString(sum));
-                mTextViewInteraction.setText(Integer.toString(numberOfIterations));
+                mTextViewResult.setText(String.format(Locale.ENGLISH, "%d \n", result));
+                mTextViewSum.setText(String.format(Locale.ENGLISH, "%.3f \n", sum));
+                mTextViewInteraction.setText(String.format(Locale.ENGLISH, "%d \n", numberOfIterations));
                 StringBuilder textWB = new StringBuilder();
                 StringBuilder textWA = new StringBuilder();
                 for (int i = 0; i < weightsBefore.length; i++) {
-                    textWA.append(Double.toString(weightsAfter[i]) + "\n");
-                    textWB.append(Double.toString(weightsBefore[i]) + "\n");
+                    textWA.append(String.format(Locale.ENGLISH, "%.3f \n", weightsAfter[i]));
+                    textWB.append(String.format(Locale.ENGLISH, "%.3f \n", weightsBefore[i]));
                 }
                 mTextViewWeightAfter.setText(textWA.toString());
                 mTextViewWeightBefore.setText(textWB.toString());

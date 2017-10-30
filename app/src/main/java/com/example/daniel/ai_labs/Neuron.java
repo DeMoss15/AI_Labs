@@ -19,11 +19,7 @@ public class Neuron {
     private int mResultOfTraining;
 
     private Neuron(){
-        for (double i: mWeightsBefore){
-            i = 0.001 * (double)(new Random().nextInt(9));
-            Log.d("Neuron", "random el: " + i);
-        }
-        mWeightsAfter = mWeightsBefore.clone();
+        reset();
     }
 
     public static Neuron getInstance(){
@@ -64,34 +60,35 @@ public class Neuron {
         }
     }
 
-    public int getmNumOfIterations() {
+    public int getNumOfIterations() {
         return mNumOfIterations;
     }
 
-    public double[] getmWeightsBefore() {
+    public double[] getWeightsBefore() {
         return mWeightsBefore;
     }
 
-    public double[] getmWeightsAfter() {
+    public double[] getWeightsAfter() {
         return mWeightsAfter;
     }
 
-    public double getmSum() {
+    public double getSum() {
         return mSum;
     }
 
-    public int getmResultOfTraining() {
+    public int getResultOfTraining() {
         return mResultOfTraining;
     }
 
     public void reset() {
-        mNumOfIterations = 0;
-        for (double i: mWeightsBefore){
-            i = 0.001 * ((double)(new Random().nextInt(8) + 1.0f));
-            Log.d("Neuron", "random el: " + i);
+        for (int i = 0; i < mWeightsAfter.length; i++){
+            mWeightsAfter[i] = 0.001 * ((double)(new Random().nextInt(8) + 1.0f));
+            Log.d("Neuron", "random el: " + mWeightsAfter[i]);
         }
         mWeightsAfter = mWeightsBefore.clone();
+        mWeightsAfter[1] += 0.001;
         mSum = 0.0;
+        mNumOfIterations = 0;
         mResultOfTraining = 0;
     }
 }

@@ -45,8 +45,8 @@
             android:ems="10"
             android:hint="Enter your message"
             android:inputType="textMultiLine"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="?android:attr/colorAccent"
+            android:textColorHint="?android:attr/colorAccent"
             android:visibility="visible" />
 
         <Button
