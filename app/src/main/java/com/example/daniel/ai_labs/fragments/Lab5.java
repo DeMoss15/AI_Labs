@@ -24,6 +24,8 @@ public class Lab5 extends Fragment {
 
     @BindView(R.id.button_train)
     Button mButtonTrain;
+    @BindView(R.id.button_reset)
+    Button mButtonReset;
     @BindView(R.id.tv_iterations)
     TextView mTextViewInteraction;
     @BindView(R.id.tv_result)
@@ -103,11 +105,7 @@ public class Lab5 extends Fragment {
                         .replaceAll("\\D", "");                       ;
 
                 if (text.length() != 7){
-                    Toast toast = Toast.makeText(
-                            getContext(),
-                            "Wrong number of values!",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("Wrong number of values!");
                 } else {
                     text = text.replace("", " ");
                     text = text.substring(1, text.length() - 1);
@@ -128,11 +126,7 @@ public class Lab5 extends Fragment {
                     double usersSpeed = Double.parseDouble(textView.getText().toString());
 
                     if (usersSpeed > 1.0d) {
-                        Toast toast = Toast.makeText(
-                                getContext(),
-                                "Your speed makes training unnecessary!\nTry values under 1.0!",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
+                        showToast("Your speed makes training unnecessary!\nTry values under 1.0!");
                     } else {
                         mUsersInputSpeed = usersSpeed;
                     }
@@ -144,8 +138,10 @@ public class Lab5 extends Fragment {
         mSpinnerVectors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i != 0)
+                if (i != 0){
                     mTextViewVector.setText("");
+                    mUsersInputVector = (String)mSpinnerVectors.getSelectedItem();
+                }
             }
 
             @Override
@@ -164,26 +160,15 @@ public class Lab5 extends Fragment {
                 switch (view.getId()) {
                     case R.id.button_train: {
                         //TODO: validate data in input fields
-                        if (((String)mSpinnerVectors.getSelectedItem()).equals("not chosen") &&
-                                mUsersInputVector.equals("") ||
-                                mUsersInputSpeed == null){
-                            Toast toast = Toast.makeText(
-                                    getContext(),
-                                    "Not enough values to train\nCommit your inputs, please",
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                        if (mUsersInputVector.equals("") || mUsersInputSpeed == null){
+                            showToast("Not enough values to train\nCommit your inputs, please");
                             break;
                         }
 
                         int[] vect = new int[7];
                         String[] strVect;
 
-                        //if user hasn't select vector pattern read vector from input
-                        if (((String)mSpinnerVectors.getSelectedItem()).equals("not chosen")){
-                            strVect = (mTextViewVector.getText().toString().split("\\s"));
-                        } else {
-                            strVect = ((String)mSpinnerVectors.getSelectedItem()).split("\\s");
-                        }
+                        strVect = mUsersInputVector.split("\\s");
 
                         //parsing String[] to int[]
                         for (int i = 0; i < strVect.length; i++) {
@@ -201,6 +186,20 @@ public class Lab5 extends Fragment {
                                 mMyNeuron.getmWeightsBefore(),
                                 mMyNeuron.getmWeightsAfter(),
                                 mMyNeuron.getmSum());
+
+                        showToast("Neuron is trained");
+                        break;
+                    }
+                    case R.id.button_reset:{
+                        mMyNeuron.reset();
+                        setOutputData(
+                                mMyNeuron.getmResultOfTraining(),
+                                mMyNeuron.getmNumOfIterations(),
+                                mMyNeuron.getmWeightsBefore(),
+                                mMyNeuron.getmWeightsAfter(),
+                                mMyNeuron.getmSum());
+
+                        showToast("Neuron reset");
                         break;
                     }
                 }
@@ -220,14 +219,15 @@ public class Lab5 extends Fragment {
                 }
                 mTextViewWeightAfter.setText(textWA.toString());
                 mTextViewWeightBefore.setText(textWB.toString());
-                Toast toast = Toast.makeText(
-                        getContext(),
-                        "Neuron is trained",
-                        Toast.LENGTH_SHORT);
-                toast.show();
             }
         };
 
         mButtonTrain.setOnClickListener(myOnClickListener);
+        mButtonReset.setOnClickListener(myOnClickListener);
+    }
+
+    private void showToast(String s){
+        Toast toast = Toast.makeText(getContext(), s, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

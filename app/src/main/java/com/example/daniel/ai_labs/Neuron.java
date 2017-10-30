@@ -83,4 +83,15 @@ public class Neuron {
     public int getmResultOfTraining() {
         return mResultOfTraining;
     }
+
+    public void reset() {
+        mNumOfIterations = 0;
+        for (double i: mWeightsBefore){
+            i = 0.001 * ((double)(new Random().nextInt(8) + 1.0f));
+            Log.d("Neuron", "random el: " + i);
+        }
+        mWeightsAfter = mWeightsBefore.clone();
+        mSum = 0.0;
+        mResultOfTraining = 0;
+    }
 }
