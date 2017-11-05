@@ -205,9 +205,6 @@ public class Lab1 extends Fragment {
 
         graph.getViewport().setMaxY(1);
         graph.getViewport().setMaxX(100);
-
-        //graph.getViewport().setScrollable(true);
-        //graph.canScrollHorizontally(0);
     }
 
 

@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by Daniel on 26.10.2017.
  */
 
-public class Neuron {
+public final class Neuron {
 
     private final static Neuron pointer = new Neuron();
 
