@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.daniel.ai_labs.Population;
 import com.example.daniel.ai_labs.R;
@@ -29,7 +30,7 @@ public class Lab6 extends Fragment {
     Button mButtonAdopt;
 
     LineGraphSeries<DataPoint> mSeriesFunction;
-    LineGraphSeries<DataPoint> mSeriesAdoptation;
+    LineGraphSeries<DataPoint> mSeriesAdoptation = new LineGraphSeries<>();
 
     Population mPopulation = Population.getInstance();
 
@@ -59,8 +60,8 @@ public class Lab6 extends Fragment {
 
         // set manual X bounds
         mGraph.getViewport().setYAxisBoundsManual(true);
-        mGraph.getViewport().setMinY(-1);
-        mGraph.getViewport().setMaxY(1);
+        mGraph.getViewport().setMinY(-1.5);
+        mGraph.getViewport().setMaxY(1.5);
 
         mGraph.getViewport().setXAxisBoundsManual(true);
         mGraph.getViewport().setMinX(0);
@@ -72,7 +73,7 @@ public class Lab6 extends Fragment {
 
         // creating array with values of function and series of it for ghaph
         mSeriesFunction = new LineGraphSeries<>();
-        mSeriesFunction.setColor(Color.CYAN);
+        mSeriesFunction.setColor(Color.BLUE);
 
         for (int i = 0; i < sNUMBER_OF_VAL; i++){
             double x = i * 0.1f;
@@ -83,6 +84,13 @@ public class Lab6 extends Fragment {
                     sNUMBER_OF_VAL);
         }
 
+        mPopulation.setFunctionValues(mValuesOfFunction);
+
+        // setting series for generation
+        mSeriesAdoptation.resetData(mPopulation.getSeries());
+        mSeriesAdoptation.setAnimated(true);
+        mSeriesAdoptation.setColor(Color.RED);
+
         buildGraph();
 
         View.OnClickListener listener = new View.OnClickListener(){
@@ -90,10 +98,18 @@ public class Lab6 extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()){
                     case R.id.button_adopt: {
-                        mPopulation.setFunctionValues(mValuesOfFunction);
                         adoptCycle();
+                        Toast toast = Toast.makeText(getContext(), "Adopted", Toast.LENGTH_LONG);
+                        toast.show();
+                        break;
+                    }
+                    case R.id.button_reset: {
+                        mPopulation.reset();
+                        break;
                     }
                 }
+                mSeriesAdoptation.resetData(mPopulation.getSeries());
+                buildGraph();
             }
         };
 
@@ -102,16 +118,15 @@ public class Lab6 extends Fragment {
     }
 
     private void adoptCycle() {
-        while (!mPopulation.isAdopted()) {
-            mSeriesAdoptation = mPopulation.getSeries();
-            buildGraph();
+        if (!mPopulation.isAdopted()) {
+            adoptCycle();
         }
     }
 
     private void buildGraph() {
         mGraph.removeAllSeries();
 
-//        mGraph.addSeries(mSeriesAdoptation);
+        mGraph.addSeries(mSeriesAdoptation);
         mGraph.addSeries(mSeriesFunction);
     }
 

@@ -13,7 +13,7 @@ final class Person {
     private final static int sNUMBER_OF_VAL = Population.sNUMBER_OF_VAL;
     private final static double sRANGE_MIN = -1.5;
     private final static double sRANGE_MAX = 1.5;
-    private final static double sDELTA = 1.0f - new Random().nextInt(3) * 0.009f;
+    private final static double sDELTA = 0.009f;//1.0f - new Random().nextInt(3) * 0.009f;
     private static double[] mFunctionValues;
     private double[] mValues = new double[sNUMBER_OF_VAL];
 
@@ -50,7 +50,11 @@ final class Person {
         }
 
         for (int i : mutatedValues) {
-            mValues[i] = female.getValues()[i] + sDELTA;
+            if (this.mValues[i] - mFunctionValues[i] > 0) {
+                this.mValues[i] = female.getValues()[i] - sDELTA;
+            } else {
+                this.mValues[i] = female.getValues()[i] + sDELTA;
+            }
         }
     }
 }

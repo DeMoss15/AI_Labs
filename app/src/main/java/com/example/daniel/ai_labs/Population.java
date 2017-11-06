@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.daniel.ai_labs.fragments.Lab6;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,12 +19,9 @@ public final class Population {
     final static int sNUMBER_OF_VAL = Lab6.sNUMBER_OF_VAL;
     private static final Population sPOINTER = new Population();
     private List<Person> mPopulationArray = new ArrayList<>();
-    private LineGraphSeries<DataPoint> mSeries = new LineGraphSeries<>();
 
     private Population() {
-        for (int i = 0; i < 20; i++) {
-            mPopulationArray.add(new Person());
-        }
+        reset();
     }
 
     public static Population getInstance() {
@@ -33,11 +29,8 @@ public final class Population {
     }
 
     public boolean isAdopted() {
-        for (Person i:mPopulationArray) {
-            if (i.getS() <= 1.0) {
-                return true;
-            }
-        }
+        if (mPopulationArray.get(0).getS() <= 1.0f)
+            return true;
         mutate();
         return false;
     }
@@ -57,18 +50,32 @@ public final class Population {
 
         // mutate
         for (int i = 0; i < 10; i++) {
-            ((Person)mPopulationArray.toArray()[10+i]).mutatePerson((Person)mPopulationArray.toArray()[i]);
+            mPopulationArray.get(10 + i).mutatePerson(mPopulationArray.get(i));
         }
 
         // logs
         for (Person p : mPopulationArray) {
             Log.d("Population", "" + p.getS());
         }
-
-        // create series
     }
 
-    public LineGraphSeries<DataPoint> getSeries() {
-        return mSeries;
+    public DataPoint[] getSeries() {
+        List<DataPoint> newSeriesData = new ArrayList<>();
+        double[] values = mPopulationArray.get(0).getValues();
+
+        for (int i = 0; i < sNUMBER_OF_VAL; i++) {
+            double x = i * 0.1f;
+            newSeriesData.add(new DataPoint(x, values[i]));
+        }
+
+        return newSeriesData.toArray(new DataPoint[sNUMBER_OF_VAL]);
+    }
+
+    public void reset() {
+        mPopulationArray = new ArrayList<>();
+
+        for (int i = 0; i < 20; i++) {
+            mPopulationArray.add(new Person());
+        }
     }
 }
